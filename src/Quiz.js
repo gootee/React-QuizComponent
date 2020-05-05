@@ -10,13 +10,19 @@ class Quiz extends Component {
     this.state = {quiz_position: 1}
   }
 
+  showNextQuestion() {
+    this.setState({quiz_position: this.state.quiz_position + 1})
+  }
+
   render() {
     let quizOrEnd
     const isQuizEnd = (this.state.quiz_position - 1) === quizData.quiz_questions.length
     if (isQuizEnd) {
       quizOrEnd = <QuizEnd />
     } else {
-      quizOrEnd = <QuizQuestion quiz_question={quizData.quiz_questions[this.state.quiz_position - 1]}/>
+      quizOrEnd = <QuizQuestion 
+        showNextQuestionHandler={ this.showNextQuestion.bind(this) }
+        quiz_question={quizData.quiz_questions[this.state.quiz_position - 1]}/>
     }
     return <div>{ quizOrEnd }</div>
   }
